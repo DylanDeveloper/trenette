@@ -1,8 +1,10 @@
-package app.dgandroid.eu.trenette.services;
+package app.dgandroid.eu.trenette.activities;
 
+import android.app.Activity;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
-import android.service.dreams.DreamService;
+import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -28,19 +30,18 @@ import app.dgandroid.eu.trenette.utils.Utility;
  * Created by Duilio on 21/08/2017.
  */
 
-public class TrenetteDreamService extends DreamService {
+public class TrenetteActivity extends Activity {
 
     private ContextWrapper context;
     private List<ImageBundle> arrayList; //List of images downloaded from server and ready to use!
     private DownloadImagesTask downloadImagesTask; //Fake task for simulate call on web service in background!
-    private Timer timer; //Timer Task in loop for doing calls (checking probably new Bundle!
     private TextView imageNameText, detailsImage; //our own textViews for showing every name and details for every image showed!
     private TrenetteKenBurnsView trenetteKenBurnsView; //My own Custom View for showing the amazing KenBurns effect!
 
     @Override
-    public void onDreamingStarted() {
-        super.onDreamingStarted();
-        setContentView(R.layout.trenette_dream_service);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.trenette_activity);
         imageNameText           = (TextView) findViewById(R.id.nameImage);
         detailsImage            = (TextView) findViewById(R.id.detailsImage);
         trenetteKenBurnsView    = (TrenetteKenBurnsView) findViewById(R.id.ken_burns_view);
@@ -64,20 +65,28 @@ public class TrenetteDreamService extends DreamService {
             }
         });
         //download images from server (Fake)...
-        timer = new Timer();
-        timer.schedule( new TimerTask() { //Let's start our Timer Task in background for looping calls every each sec...
-            public void run() {
-                Logger.i("TimerTask  ***** ");
-                callAction(); //Call the fake web service!
-            }
-        }, 20000, 20000); //60 sec for starting the first call, 60 sec for every loop.
+        setRepeatingAsyncTask();
     }
 
-    @Override
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        setInteractive(false); //Allow user touch
-        setFullscreen(true);  //Hide system UI
+    private void setRepeatingAsyncTask() {
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    public void run() {
+                        try {
+                            callAction();
+                        } catch (Exception e) {
+                            // error, do something
+                            Logger.e("Exception why..." + e.getMessage());
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(task, 60000, 120000);  // interval of one minute
     }
 
     public void callAction(){
@@ -86,8 +95,11 @@ public class TrenetteDreamService extends DreamService {
             @Override
             public void onFakeResponseFromServer(List<ImageBundle> dataImages) {
                 if(dataImages != null) {
+                    Logger.i("*** dataImages != null ***");
                     arrayList = dataImages;
                     initializeKenBurnsView(arrayList, false); //Initialize our Custom View with the new Bundle images!
+                } else {
+                    Logger.i("*** dataImages == null.....");
                 }
             }
         });

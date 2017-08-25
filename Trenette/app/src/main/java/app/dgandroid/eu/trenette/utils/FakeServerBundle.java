@@ -35,7 +35,7 @@ public class FakeServerBundle {
     public static String[] IMAGES_URLS = new String[] {
             "https://www.lospicchiodaglio.it/img/ricette/pastasugofilettipesce.jpg",
             "http://img.taste.com.au/yi5JzgGT/taste/2010/01/creamy-chicken-pesto-pasta-118914-1.jpg",
-            "https://www.silviocicchi.com/pizzachef/wp-content/uploads/2016/01/pasta.jpg",
+            "http://www.italiapopolsku.com/wp-content/uploads/2017/03/spaghetti-amatriciana.jpg",
             "http://winedharma.com/sites/winedharma.com/files/imagecache/auto-768/story/1650-spaghetti-alla-carbonara-ricetta-originale-romana-spaghetti-con-guanciale-pecorino-uovo-e-pepe.jpg",
             "http://www.leitv.it/wp-content/uploads/2013/09/sugo-melanzane.jpg"
     };

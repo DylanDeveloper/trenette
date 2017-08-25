@@ -50,6 +50,7 @@ public class Utility {
 
         DataStorageController.getInstance().getBundleDataImages().setVersionBundle(FakeServerBundle.VERSION_BUNDLE); //set the new Bundle Version!
         DataStorageController.getInstance().updateData(context); //Save all DataImage received from server in our JSON string data file!
+        Logger.i("----- on return data...");
         return arrayList; // return the new Bundle Images!
     }
 

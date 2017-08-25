@@ -28,9 +28,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
                 android:elevation="10dp"
+                android:gravity="right"
                 android:paddingBottom="4dp"
                 android:text="Name of this Image"
-                android:textAlignment="textEnd"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -41,8 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
                 android:elevation="10dp"
+                android:gravity="right"
                 android:text="Details of this Image"
-                android:textAlignment="textEnd"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
         </LinearLayout>

@@ -322,7 +322,7 @@ public class TrenetteKenBurnsView extends FrameLayout {
         sCachedSizeForLoadType  = 0;
         mObjets = objects;
         if (mRootLayout != null) {
-            mRootLayout.removeAllViews();
+            //mRootLayout.removeAllViews();
             if(mImageViews != null) {
                 for(int i = 0; i<mImageViews.length; i++) {
                     mImageViews[i].setVisibility(GONE);
