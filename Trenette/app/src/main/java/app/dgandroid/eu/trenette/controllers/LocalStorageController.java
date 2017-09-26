@@ -43,7 +43,7 @@ public class LocalStorageController {
         }
     }
 
-    public static void setSecureValue(String elem, Context cw) {
+    public static void saveData(String elem, Context cw) {
         FileOutputStream outputStream = null;
         try {
             outputStream = cw.openFileOutput(Constants.LOCAL_DATA, Context.MODE_PRIVATE);

@@ -58,7 +58,7 @@ public class DataStorageController {
     public void updateData(Context context) {
         Gson gson = new Gson();
         String s = gson.toJson(mBundleDataImages);
-        LocalStorageController.setSecureValue(s, context);
+        LocalStorageController.saveData(s, context);
         Logger.i(s);
     }
 }

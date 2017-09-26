@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
@@ -14,7 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import java.util.List;
 import java.util.Random;
-import app.dgandroid.eu.trenette.R;
+import app.dgandroid.eu.trenette.databinding.KenBurnsViewBinding;
 import app.dgandroid.eu.trenette.models.ImageBundle;
 
 /**
@@ -57,6 +58,7 @@ public class TrenetteKenBurnsView extends FrameLayout {
     private static int sCachedSizeForLoadType;
     private TextView mImageNameText;
     private TextView mimageDetailsText;
+    private KenBurnsViewBinding binding;
 
     public TrenetteKenBurnsView(Context context) {
         this(context, null);
@@ -281,8 +283,9 @@ public class TrenetteKenBurnsView extends FrameLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        View view = inflate(getContext(), R.layout.ken_burns_view, this);
-        mRootLayout = (FrameLayout) view.findViewById(R.id.ken_burns_root);
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        binding = KenBurnsViewBinding.inflate(inflater, this, true);
+        mRootLayout = binding.kenBurnsRoot;
     }
 
     public void loadStrings(List<String> strings) {
@@ -322,7 +325,6 @@ public class TrenetteKenBurnsView extends FrameLayout {
         sCachedSizeForLoadType  = 0;
         mObjets = objects;
         if (mRootLayout != null) {
-            //mRootLayout.removeAllViews();
             if(mImageViews != null) {
                 for(int i = 0; i<mImageViews.length; i++) {
                     mImageViews[i].setVisibility(GONE);
